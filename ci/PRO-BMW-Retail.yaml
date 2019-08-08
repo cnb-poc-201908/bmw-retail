@@ -1,0 +1,23 @@
+apiVersion: extensions/v1beta1
+kind: Deployment
+metadata:
+  name: pro-bmw-retail
+  namespace: pro
+spec:
+  replicas: 1
+  template:
+    metadata:
+      labels:
+        app: pro-bmw-retail
+    spec:
+      containers:
+        - name: pro-bmw-retail
+          image: registry.cn-beijing.aliyuncs.com/bmwpoc/pro-bmw-retail:{version}
+          ports:
+            - name: http-port
+              containerPort: 20005
+          env:
+            - name: spring_profiles_active
+              value: k8s
+      imagePullSecrets:
+        - name: bmwpoc
