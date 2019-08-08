@@ -5,6 +5,7 @@ import com.bmw.utils.CommonResult;
 import com.bmw.utils.JsonUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.redis.core.RedisTemplate;
+import org.springframework.data.redis.core.StringRedisTemplate;
 import org.springframework.data.redis.core.ValueOperations;
 import org.springframework.stereotype.Service;
 
@@ -45,11 +46,13 @@ public class CreateNewData {
     @Autowired
     private RedisTemplate<String, String> redisTemplate;
 
+
     /**
      * 保存基础数据到Redis
      * @return
      */
     public CommonResult saveDataInRedis() {
+        String redisAllKey = "bmw-retail:list";
         String redisPerKey = "bmw-retail:list:";
         List<RetailPojo> retailPojoList = new ArrayList<>();
         retailPojoList = this.generateData();
@@ -59,6 +62,7 @@ public class CreateNewData {
             String json = JsonUtils.objectToJson(temp);
             ops.set(redisKey, json);
         }
+        ops.set(redisAllKey, JsonUtils.objectToJson(retailPojoList));
         return CommonResult.ok();
     }
 

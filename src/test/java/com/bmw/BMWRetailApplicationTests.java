@@ -1,5 +1,6 @@
 package com.bmw;
 
+import com.bmw.pojo.RetailPojo;
 import com.bmw.service.CreateNewData;
 import com.bmw.service.RetailService;
 import com.bmw.utils.CommonResult;
@@ -29,5 +30,16 @@ public class BMWRetailApplicationTests {
     public void testGetRedisList() {
         CommonResult result = retailService.dispalyRetailList();
         logger.info("******** " + result.getData());
+    }
+
+    @Test
+    public void testUpdateRetail() {
+        RetailPojo retailPojo = new RetailPojo();
+        retailPojo.setContractNum("1693");
+        retailPojo.setInvoiceDate("2019-10-01");
+        retailPojo.setDelieryCarSA("Asvgywie");
+        retailPojo.setCertiCode("32432443645645342");
+
+        retailService.updateRetailInfor(retailPojo);
     }
 }
