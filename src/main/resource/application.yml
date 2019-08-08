@@ -21,6 +21,7 @@ spring:
 server:
   servlet:
     context-path: /retail
+  port: 20005
 
 security:
   oauth2:
@@ -66,6 +67,7 @@ eureka:
     instance-id: ${spring.application.name}:${server.port}
   environment: dev
 
+swagger.enabled: true
 
 ---
 spring:
@@ -127,3 +129,5 @@ security:
       clientSecret: "9LJWr8ztDW9jkW2C"
       accessTokenUri: https://stageidp.apigw.cdkapps.cn/auth/token
       scope: showroom
+
+swagger.enabled: true
