@@ -19,7 +19,9 @@ spring:
         max-active: 8
         max-wait: 10ms
 server:
-  port: 20005
+  servlet:
+    context-path: /retail
+
 security:
   oauth2:
     client:
@@ -84,7 +86,7 @@ spring:
         max-wait: 10ms
 server:
   servlet:
-    context-path: /stock
+    context-path: /retail
   port: 20005
 
 # 服务管理配置

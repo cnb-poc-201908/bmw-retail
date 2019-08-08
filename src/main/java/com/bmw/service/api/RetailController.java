@@ -50,12 +50,12 @@ public class RetailController {
      * display retail list
      * @return
      */
-    @RequestMapping(value = "/retail/getRetailList", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.GET)
+    @RequestMapping(value = "/getRetailList", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.GET)
     public CommonResult getRetailList() {
         return retailService.dispalyRetailList();
     }
 
-    @RequestMapping(value = "/retail/updateRetail", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
+    @RequestMapping(value = "/updateRetail", produces = {"application/json;charset=UTF-8"}, method = RequestMethod.POST)
     public CommonResult updateRetailInfor(@RequestBody RetailPojo retailPojo) {
         if(retailPojo == null)
             return CommonResult.build(500, "Post parameter is null");
