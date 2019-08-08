@@ -1,0 +1,127 @@
+spring:
+  profiles:
+    active: local
+---
+spring:
+  profiles: local
+  application:
+    name: bmw-retail
+  redis:
+    host: 112.126.99.2
+    port: 31379
+    timeout: 10000
+    database: 2
+    lettuce:
+      shutdown-timeout: 100ms
+      pool:
+        min-idle: 5
+        max-idle: 10
+        max-active: 8
+        max-wait: 10ms
+server:
+  port: 20005
+security:
+  oauth2:
+    client:
+      grantType: client_credentials
+      clientId: "Di7hBWKdZbATm4EAqAghniLQz1MGvjdS"
+      clientSecret: "9LJWr8ztDW9jkW2C"
+      accessTokenUri: https://stageidp.apigw.cdkapps.cn/auth/token
+      scope: showroom
+
+# 服务管理配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"        #暴漏的接口，"*"表示所有web监控接口
+        exclude:            #不暴漏的接口
+      base-path: /actuator  #监控根路径
+  endpoint:
+    health:
+      show-details: ALWAYS
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+## 日志设置配置信息
+logging:
+  config: classpath:logback-boot_dev.xml
+
+#注册中心
+eureka:
+  client:
+    service-url:
+      defaultZone: http://localhost:10001/eureka
+  instance:
+    prefer-ip-address: true
+#    securePortEnabled: true
+    instance-id: ${spring.application.name}:${server.port}
+  environment: dev
+
+
+---
+spring:
+  profiles: k8s
+  application:
+    name: bmw-retail
+  redis:
+    host: 112.126.99.2
+    port: 31379
+    timeout: 0
+    database: 2
+    lettuce:
+      shutdown-timeout: 100ms
+      pool:
+        min-idle: 5
+        max-idle: 10
+        max-active: 8
+        max-wait: 10ms
+server:
+  servlet:
+    context-path: /stock
+  port: 20005
+
+# 服务管理配置
+management:
+  endpoints:
+    web:
+      exposure:
+        include: "*"        #暴漏的接口，"*"表示所有web监控接口
+        exclude:            #不暴漏的接口
+      base-path: /actuator  #监控根路径
+  endpoint:
+    health:
+      show-details: ALWAYS
+    metrics:
+      enabled: true
+    prometheus:
+      enabled: true
+  metrics:
+    export:
+      prometheus:
+        enabled: true
+
+#注册中心
+eureka:
+  client:
+    service-url:
+      defaultZone: http://bmw-register:10001/eureka
+  instance:
+    prefer-ip-address: true
+    instance-id: ${spring.application.name}:${server.port}
+  environment: sit
+
+security:
+  oauth2:
+    client:
+      grantType: client_credentials
+      clientId: "Di7hBWKdZbATm4EAqAghniLQz1MGvjdS"
+      clientSecret: "9LJWr8ztDW9jkW2C"
+      accessTokenUri: https://stageidp.apigw.cdkapps.cn/auth/token
+      scope: showroom
